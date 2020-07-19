@@ -1,5 +1,7 @@
 package lhc.designmodel.decorator;
 
+import java.io.BufferedInputStream;
+
 /**
  * @author arron lu
  * @version 1.0
@@ -8,7 +10,9 @@ package lhc.designmodel.decorator;
 public class Client {
     public static void main(String[] args) {
 
-        Component component=new ConcreteDecorator2(new ConcreteDecorator1(new ConcreteComponent()));
+        Component component = new ConcreteDecorator2(
+                new ConcreteDecorator1(
+                        new ConcreteComponent()));
         component.doSomething();
     }
 }
