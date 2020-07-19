@@ -34,7 +34,7 @@ public class NioTestClas {
             int numbers = selector.select();
             System.out.println("numbers:" + numbers);
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
-
+            System.out.println(selectionKeys);
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
 
             while (iterator.hasNext()) {
@@ -48,24 +48,28 @@ public class NioTestClas {
                     System.out.println("获得客户端连接：" + socketChannel);
                 } else if (selectionKey.isReadable()) {
                     SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
-                    int read = 0;
+                    int byteRead = 0;
                     while (true) {
                         ByteBuffer byteBuffer = ByteBuffer.allocate(512);
                         byteBuffer.clear();
+                        int read = socketChannel.read(byteBuffer);
                         if (read <= 0) {
-                            byteBuffer.flip();
-                            socketChannel.write(byteBuffer);
-                            read += read;
+                            break;
                         }
-                        System.out.println("读取：" + read + "来自于：" + socketChannel);
-                        iterator.remove();
-
+                        byteBuffer.flip();
+                        socketChannel.write(byteBuffer);
+                        byteRead += read;
                     }
+                    System.out.println("读取：" + byteRead + "来自于：" + socketChannel);
+                    iterator.remove();
                 }
+
+
             }
-
         }
-
-
     }
+
 }
+
+
+
