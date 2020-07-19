@@ -38,7 +38,7 @@ public class NioTest1 {
      *  所有的数据都是通过buffer来进行的，永远不会出现直接向channel写入数据的情况，或直接从channel读取数据的情况
      *  与stream不同的是channel是双向的，一个流只可能是读入流或者是输出流
      *  由于channel是双向的，所以他能更好的反映出底层操作系统的真实情况，底层操作系统的通道就是双向的
-     *
+     *  关于Nio buffer中3个重要属性的含义：position，limit，capacity
      * @param args
      */
 
