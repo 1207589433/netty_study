@@ -11,6 +11,7 @@ import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
 
 import java.net.SocketAddress;
+import java.util.concurrent.*;
 
 //Reactor模式--反应器模式
 //Proactor模式
@@ -20,10 +21,10 @@ public class MyServer {
 
 
     public static void main(String[] args) throws Exception {
+        //接受客户端连接 ->将连接转给workerGroup
+        //死循环,构造方法线程数，系统线程数*2;
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-
-
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
